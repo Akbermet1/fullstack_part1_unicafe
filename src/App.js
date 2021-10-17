@@ -27,15 +27,30 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [average, setAverage] = useState(0) //added this
   const totalOfAllFeedbacks = good + neutral + bad;
 
-  const incrementGood = () => setGood(good + 1)
-  const incrementNeutral = () => setNeutral(neutral + 1)
-  const incrementBad = () => setBad(bad + 1)
+  const incrementGood = () => {
+    setGood(good + 1)
+    findAverage()
+    // setAverage(updatedAverage)
+  }
+  const incrementNeutral = () => {
+    setNeutral(neutral + 1)
+    findAverage()
+    // setAverage(updatedAverage)
+  }
+  const incrementBad = () => {
+    setBad(bad + 1)
+    findAverage()
+    // setAverage(updatedAverage)
+  }
 
-  const findAverage = (good, neutral, bad) => {
+  const findAverage = () => {
+    console.log(good, neutral, bad)
     console.log(((good * 1) + (neutral * 0) + (bad  * (-1))))
-    return ((good * 1) + (neutral * 0) + (bad  * (-1))) / 3
+    const updatedAverage = ((good * 1) + (neutral * 0) + (bad  * (-1))) / 3
+    setAverage(updatedAverage)
   }
 
   const findPositivePercentage = (good, neutral, bad) => {
@@ -57,7 +72,7 @@ const App = () => {
       <Statistic statisticType={"neutral"} statisticCount={neutral}/>
       <Statistic statisticType={"bad"} statisticCount={bad}/>
       <Statistic statisticType={"all"} statisticCount={good+bad+neutral}/>
-      <Statistic statisticType={"average"} statisticCount={findAverage(good, neutral, bad)}/>
+      <Statistic statisticType={"average"} statisticCount={average}/>
       <Statistic statisticType={"positive"} statisticCount={findPositivePercentage(good, neutral, bad) + " %"}/>
     </div>
   )
