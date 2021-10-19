@@ -16,14 +16,22 @@ const Button = (props) => {
 
 const Statistics = ({good, neutral, bad}) => {
   const total = good+bad+neutral;
+  if(total > 0)
+  {
+    return (
+      <div>
+        <Statistic statisticType={"good"} statisticCount={good}/>
+        <Statistic statisticType={"neutral"} statisticCount={neutral}/>
+        <Statistic statisticType={"bad"} statisticCount={bad}/>
+        <Statistic statisticType={"all"} statisticCount={total}/>
+        <Statistic statisticType={"average"} statisticCount={total > 0 ? ((good-bad)/total) + " %": "0 %"}/>
+        <Statistic statisticType={"positive"} statisticCount={total > 0 ? ((100*good)/total) + " %" : "0 %"}/>
+      </div>
+    ) 
+  }
   return (
     <div>
-      <Statistic statisticType={"good"} statisticCount={good}/>
-      <Statistic statisticType={"neutral"} statisticCount={neutral}/>
-      <Statistic statisticType={"bad"} statisticCount={bad}/>
-      <Statistic statisticType={"all"} statisticCount={total}/>
-      <Statistic statisticType={"average"} statisticCount={total > 0 ? ((good-bad)/total) + " %": "0 %"}/>
-      <Statistic statisticType={"positive"} statisticCount={total > 0 ? ((100*good)/total) + " %" : "0 %"}/>
+      <p> No feedback given </p>
     </div>
   )
 }
