@@ -14,6 +14,20 @@ const Button = (props) => {
   )
 }
 
+const Statistics = ({good, neutral, bad}) => {
+  const total = good+bad+neutral;
+  return (
+    <div>
+      <Statistic statisticType={"good"} statisticCount={good}/>
+      <Statistic statisticType={"neutral"} statisticCount={neutral}/>
+      <Statistic statisticType={"bad"} statisticCount={bad}/>
+      <Statistic statisticType={"all"} statisticCount={total}/>
+      <Statistic statisticType={"average"} statisticCount={total > 0 ? ((good-bad)/total) + " %": "0 %"}/>
+      <Statistic statisticType={"positive"} statisticCount={total > 0 ? ((100*good)/total) + " %" : "0 %"}/>
+    </div>
+  )
+}
+
 const Statistic = ({statisticType, statisticCount}) => {
   return (
     <div>
@@ -37,14 +51,6 @@ const App = () => {
     setBad(bad + 1)
   }
 
-  const findPositivePercentage = (good, neutral, bad) => {
-    const total = good + neutral + bad;
-    if(total === 0)
-      return 0
-    else
-      return (100*good)/total
-  }
-
   return (
     <div>
       <Header title={"give feedback"}/>
@@ -53,12 +59,7 @@ const App = () => {
       <Button onClick={incrementBad} text={"bad"}/>
 
       <Header title={"statistics"}/>
-      <Statistic statisticType={"good"} statisticCount={good}/>
-      <Statistic statisticType={"neutral"} statisticCount={neutral}/>
-      <Statistic statisticType={"bad"} statisticCount={bad}/>
-      <Statistic statisticType={"all"} statisticCount={good+bad+neutral}/>
-      <Statistic statisticType={"average"} statisticCount={good+bad+neutral > 0 ? (good-bad)/(good+bad+neutral): 0}/>
-      <Statistic statisticType={"positive"} statisticCount={findPositivePercentage(good, neutral, bad) + " %"}/>
+      <Statistics good={good} neutral={neutral} bad={bad}/>
     </div>
   )
 }
